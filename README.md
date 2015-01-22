@@ -14,9 +14,9 @@ docker pull quay.io/coreos/discovery.etcd.io
 docker run -d -p 80:8087 \
   -e ROOT_URL=https://discovery.etcd.io \
   -e ETCD_MACHINES=http://127.0.0.1:4001 \
+  -e ETCD_LEADER_ADDRESS=127.0.0.1:4001 \
   quay.io/coreos/discovery.etcd.io
 ```
-
 
 ## Development
 
