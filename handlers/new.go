@@ -31,7 +31,16 @@ func setupToken(size int) (string, error) {
 		return "", errors.New("Couldn't generate a token")
 	}
 
-	client := etcd.NewClient(nil)
+	machines := make([]string, 0)
+	etcd_machines := os.Getenv("ETCD_MACHINES")
+
+	if etcd_machines != "" {
+		machines = append(machines, etcd_machines)
+	}
+
+	log.Printf("Connecting to etcd at %v", machines)
+	client := etcd.NewClient(machines)
+
 	key := path.Join("_etcd", "registry", token)
 	resp, err := client.CreateDir(key, 0)
 
